@@ -1,9 +1,11 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+<!--  <nav>-->
+<!--    <router-link to="/">Home</router-link> |-->
+<!--    <router-link to="/about">About</router-link>-->
+<!--  </nav>-->
   <router-view/>
+  
+  <img src="./assets/logo.png" class="logo">
 </template>
 
 <style>
@@ -15,6 +17,12 @@
   color: #2c3e50;
 }
 
+.logo {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 100px;
+}
 nav {
   padding: 30px;
 }
