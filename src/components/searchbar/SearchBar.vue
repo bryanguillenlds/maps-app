@@ -1,6 +1,21 @@
 <template>
   <div class="searchbar-container">
-    <input type="text" class="form-control" placeholder="Search Places..." v-model="searchTerm"/>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search Places..."
+        v-model="searchTerm"
+      />
+      <button
+        v-if="searchTerm"
+        @click="clearInput"
+        class="btn btn-outline-secondary"
+        type="button"
+      >
+        ×
+      </button>
+    </div>
 
     <SearchResults />
   </div>
@@ -19,5 +34,20 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 5px;
+}
+
+.input-group {
+  display: flex;
+}
+
+.input-group .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
 }
 </style>

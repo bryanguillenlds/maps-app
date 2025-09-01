@@ -1,17 +1,22 @@
-import {computed, defineComponent, onMounted, ref, watch} from "vue";
-import {useMapStore, usePlacesStore} from "@/composables";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
+import { useMapStore, usePlacesStore } from "@/composables";
 import Mapboxgl from "mapbox-gl";
 import SearchResults from "@/components/search-results/SearchResults.vue";
 
 export default defineComponent({
-  name: 'SearchBar',
-  components: {SearchResults},
+  name: "SearchBar",
+  components: { SearchResults },
   setup() {
     const debounceTimeout = ref();
-    const debouncedValue = ref('');
+    const debouncedValue = ref("");
 
-    const {searchPlacesByTerm} = usePlacesStore()
-;
+    const { searchPlacesByTerm, clearPlaces } = usePlacesStore();
+
+    const clearInput = () => {
+      debouncedValue.value = "";
+      clearPlaces();
+    };
+
     return {
       debouncedValue,
 
@@ -27,10 +32,16 @@ export default defineComponent({
           //then create a new timeout and update the changed value
           debounceTimeout.value = setTimeout(() => {
             debouncedValue.value = val;
-            searchPlacesByTerm(val);
-          }, 500)
-        }
-      })
-    }
-  }
-})
+            if (val.length === 0) {
+              clearPlaces();
+            } else {
+              searchPlacesByTerm(val);
+            }
+          }, 500);
+        },
+      }),
+
+      clearInput,
+    };
+  },
+});
